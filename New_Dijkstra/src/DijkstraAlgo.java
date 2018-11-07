@@ -64,20 +64,20 @@ public class DijkstraAlgo{
 	public static void main(String[] args){
 
 		//initialize the graph base on the Romania map
-		Node n1 = new Node("Arad");
-		Node n2 = new Node("Zerind");
-		Node n3 = new Node("Oradea");
-		Node n4 = new Node("Sibiu");
-		Node n5 = new Node("Fagaras");
-		Node n6 = new Node("Rimnicu Vilcea");
-		Node n7 = new Node("Pitesti");
-		Node n8 = new Node("Timisoara");
-		Node n9 = new Node("Lugoj");
-		Node n10 = new Node("Mehadia");
-		Node n11 = new Node("Drobeta");
-		Node n12 = new Node("Craiova");
-		Node n13 = new Node("Bucharest");
-		Node n14 = new Node("Giurgiu");
+		Node n1 = new Node("L1");
+		Node n2 = new Node("L2");
+		Node n3 = new Node("L3");
+		Node n4 = new Node("L4");
+		Node n5 = new Node("L5");
+		Node n6 = new Node("L6");
+		Node n7 = new Node("L7");
+		Node n8 = new Node("L8");
+		Node n9 = new Node("L9");
+		Node n10 = new Node("L10");
+		Node n11 = new Node("L11");
+		Node n12 = new Node("L12");
+		Node n13 = new Node("L13");
+		Node n14 = new Node("L14");
 
 		//initialize the edges
 		n1.adjacencies = new Edge[]{
