@@ -204,12 +204,27 @@ public class DijkstraAlgo{
 
 		//compute paths
        	// example " nodes.get(0) = "LT1"
-		computePaths(nodes.get(0));
-
+       	
+		Node destNode = new Node("");
+		System.out.println("Enter Source: ");
+		Scanner scanner = new Scanner(System.in);
+		String source = scanner.nextLine();
+		System.out.println("Enter Destination: ");
+		String destination = scanner.nextLine();
+		scanner.close();
+		System.out.print(source);
+		for (int counter = 0; counter < nodes.size(); counter++) {
+			if (nodes.get(counter).toString().equals(source)) {
+				computePaths(nodes.get(counter)); // Sets source
+			}
+			if (nodes.get(counter).toString().equals(destination)) {
+				destNode = nodes.get(counter); // Sets Destination
+			}
+		}
 		
 		// Print shortest paths and distance
 		// example " nodes.get(12) = "LT13"
-		List<Node> path = getShortestPathTo(nodes.get(12));
+		List<Node> path = getShortestPathTo(destNode);
 		System.out.println("Path: " );
 		for(Node n: path) {
 			
