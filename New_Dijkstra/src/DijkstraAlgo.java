@@ -2,6 +2,11 @@ import java.util.PriorityQueue;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 
 
@@ -10,6 +15,7 @@ public class DijkstraAlgo{
  * 
  *
  */
+	// Function 1
 	public static void computePaths(Node source){
 		source.shortestDistance=0;
 
@@ -44,6 +50,7 @@ public class DijkstraAlgo{
 		}
 	}
 
+	// Function 2
 	public static List<Node> getShortestPathTo(Node target){
 
 		//trace path from target to source
@@ -58,120 +65,181 @@ public class DijkstraAlgo{
 
 		return path;
 	}
+	
+	// Function 3
+	public static String calculateEstimatedTime(double distance) {
+		// average human walking speed 1.4m per second
+		double totalTimeTaken = Double.parseDouble(String.format("%.2f", (distance / 1.4)));
+		int timeInMinute = (int)totalTimeTaken / 60;
+		
+		if(timeInMinute >= 1) {
+			return timeInMinute + "minutes " + (totalTimeTaken - timeInMinute) + "seconds";
+		}
+		else {
+			return totalTimeTaken + "seconds";
+		}
+	}
 
 
 
 	public static void main(String[] args){
+		
+		String csvFile = "node.txt";
+        BufferedReader br = null;
+        String line = "";
+        String cvsSplitBy = ",";
+        ArrayList<Node> test_nodes = new ArrayList<>();
+        
+        ArrayList<String> node_information = new ArrayList<>();
 
-		//initialize the graph base on the Romania map
-		Node n1 = new Node("L1");
-		Node n2 = new Node("L2");
-		Node n3 = new Node("L3");
-		Node n4 = new Node("L4");
-		Node n5 = new Node("L5");
-		Node n6 = new Node("L6");
-		Node n7 = new Node("L7");
-		Node n8 = new Node("L8");
-		Node n9 = new Node("L9");
-		Node n10 = new Node("L10");
-		Node n11 = new Node("L11");
-		Node n12 = new Node("L12");
-		Node n13 = new Node("L13");
-		Node n14 = new Node("L14");
+        try {
 
-		//initialize the edges
-		n1.adjacencies = new Edge[]{
-			new Edge(n2,75),
-			new Edge(n4,140),
-			new Edge(n8,118)
-		};
+            br = new BufferedReader(new FileReader(csvFile));
+            String headerLine = br.readLine();	// Ignore the first row, header
+            System.out.println("Header, first row is skipped");
+            while ((line = br.readLine()) != null) {
+            		
+            		// add each line in ArrayList
+            		node_information.add(line);
+                // use comma as separator
+                String[] test_node = line.split(cvsSplitBy);
+                
+                String node_name = test_node[1];
+                // For debugging if all data are sucessfully extracted from csv file
+                /*
+                System.out.println("node [node name= " + test_node[1] + 
+                		" , node_start=" + test_node[5] + 
+                		", node_finish =" + test_node[6] + 
+                		", weight (distance between them) =" + test_node[7] + "]");
+                	*/
+                
+              //initialize the graph base on the CityU Campus map
+                test_nodes.add(new Node(node_name));
+                
+                
+            }
 
-		n2.adjacencies = new Edge[]{
-			new Edge(n1,75),
-			new Edge(n3,71)
-		};
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        // print node stored in the ArrayList for debugging
+        // Igonore this
+        /*
+        for(Node n: test_nodes) {
+        		System.out.print(" " + n);
+        }
+        System.out.println("");
+        */
 
-		n3.adjacencies = new Edge[]{
-			new Edge(n2,71),
-			new Edge(n4,151)
-		};
+        
+        // initiallize the edegs
+        for(Node n: test_nodes) {
+        		int index = 0;
+        		ArrayList<Edge> temp_edges = new ArrayList<Edge>();
+        		for(String s: node_information) {
+        			String[] split_info = s.split(cvsSplitBy);
+        			
+        			if(n.toString().equals(split_info[5])) {
+        				for(Node node_oneMore: test_nodes) {
+        					if(node_oneMore.toString().equals(split_info[6])) {
+        						temp_edges.add(new Edge(node_oneMore.toNode(), Integer.parseInt(split_info[7])));
+        						index++;
+        					}
+        				}
+        			}
+        			else if(n.toString().equals(split_info[6])){
+        				for(Node node_oneMore: test_nodes) {
+        					if(node_oneMore.toString().equals(split_info[5])) {
+        						temp_edges.add(new Edge(node_oneMore.toNode(), Integer.parseInt(split_info[7])));
+        						index++;
+        					}
+        				}
+        			}
+        		}
+        		
+        		//update the distance (weight) between nodes next each other
+        		Edge[] temp_edges_array = new Edge[temp_edges.size()];
+        		for(int i = 0; i < temp_edges.size(); i++) {
+        			temp_edges_array[i] = temp_edges.get(i);
+        		}
+        		n.adjacencies = new Edge[temp_edges_array.length];
+        		for(int i = 0; i < temp_edges_array.length; i++) {
+        			n.adjacencies[i] = temp_edges_array[i];
+        			//System.out.println(temp_edges_array[i]);
+        			//System.out.println(n.adjacencies[i]);
+        		}
+        }
+        
+       for(Node n: test_nodes) {
+    	   		for(Edge s: n.adjacencies) {
+    	   			System.out.println("From: '" + n + "'"
+    	   			+ "To: '" + s.target + "' "
+    	   			+ " the Weight (distnace) is: " + s.weight + "m");
+    	   		}
+       }
 
-		n4.adjacencies = new Edge[]{
-			new Edge(n1,140),
-			new Edge(n5,99),
-			new Edge(n3,151),
-			new Edge(n6,80),
-		};
-
-		n5.adjacencies = new Edge[]{
-			new Edge(n4,99),
-			new Edge(n13,211)
-		};
-
-		n6.adjacencies = new Edge[]{
-			new Edge(n4,80),
-			new Edge(n7,97),
-			new Edge(n12,146)
-		};
-
-		n7.adjacencies = new Edge[]{
-			new Edge(n6,97),
-			new Edge(n13,101),
-			new Edge(n12,138)
-		};
-
-		n8.adjacencies = new Edge[]{
-			new Edge(n1,118),
-			new Edge(n9,111)
-		};
-
-		n9.adjacencies = new Edge[]{
-			new Edge(n8,111),
-			new Edge(n10,70)
-		};
-
-		n10.adjacencies = new Edge[]{
-			new Edge(n9,70),
-			new Edge(n11,75)
-		};
-
-		n11.adjacencies = new Edge[]{
-			new Edge(n10,75),
-			new Edge(n12,120)
-		};
-
-		n12.adjacencies = new Edge[]{
-			new Edge(n11,120),
-			new Edge(n6,146),
-			new Edge(n7,138)
-		};
-
-		n13.adjacencies = new Edge[]{
-			new Edge(n7,101),
-			new Edge(n14,90),
-			new Edge(n5,211)
-		};
-
-		n14.adjacencies = new Edge[]{
-			new Edge(n13,90)
-		};
-
-		Node[] nodes = {n1,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12,n13,n14};
+        
+       
+		//Node[] nodes = {"LT1","LT2","LT3","LT4","LT5","LT6","LT7","LT8", ...};
+       
+       	ArrayList<Node> nodes = new ArrayList<>();
+       	
+       	for(Node n: test_nodes) {
+       		nodes.add(n);
+       	}
+       	
+       	
+       	// ********************This is the user input part!!!!!!***********************
 
 		//compute paths
-		computePaths(n1);
+       	// example " nodes.get(0) = "LT1"
+		computePaths(nodes.get(0));
 
+		
+		// Print shortest paths and distance
+		// example " nodes.get(12) = "LT13"
+		List<Node> path = getShortestPathTo(nodes.get(12));
+		System.out.println("Path: " );
+		for(Node n: path) {
+			
+			if(path.get(path.size()-1).equals(n)) {
+				
+				System.out.print(n + " (Destination)!" + '\n');
+				System.out.println("Distance to " + 
+						n + ": " + n.shortestDistance + "m");
+				
+				
+				System.out.println("Estimated Time Taken to " + 
+						n + ": " + calculateEstimatedTime(n.shortestDistance));
+			}
+			else {
+				System.out.print(n + " -> " );
+			}
+		}
+		
+		// ********************This is the user input part!!!!!!***********************
+		
 		//print shortest paths
-		/*
-		for(Node n: nodes){
-			System.out.println("Distance to " + 
-				n + ": " + n.shortestDistance);
-    		List<Node> path = getShortestPathTo(n);
-    		System.out.println("Path: " + path);
-		}*/
-
-		List<Node> path = getShortestPathTo(n13);
-		System.out.println("Path: " + path);
+				/*
+				for(Node n: nodes){
+					System.out.println("Distance to " + 
+						n + ": " + n.shortestDistance);
+		    		List<Node> path = getShortestPathTo(n);
+		    		System.out.println("Path: " + path);
+				}
+				*/
+		
 
 	}
 

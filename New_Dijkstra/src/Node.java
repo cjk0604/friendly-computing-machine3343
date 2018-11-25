@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 //define Node
 class Node implements Comparable<Node>{
 	
@@ -12,6 +14,10 @@ class Node implements Comparable<Node>{
 
 	public String toString(){
 			return value;
+	}
+	
+	public Node toNode() {
+		return this;
 	}
 
 	public int compareTo(Node other){

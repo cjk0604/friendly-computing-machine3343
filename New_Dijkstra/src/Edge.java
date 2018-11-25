@@ -7,4 +7,5 @@ class Edge{
 		target = targetNode;
 		weight = weightVal;
 	}
+	
 }
