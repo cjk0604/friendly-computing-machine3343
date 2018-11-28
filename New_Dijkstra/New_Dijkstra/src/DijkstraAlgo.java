@@ -79,56 +79,19 @@ public class DijkstraAlgo{
 			return totalTimeTaken + "seconds";
 		}
 	}
-	
-	// Function 4
-	// initialize the edges
-	public static void initializeEdges(ArrayList<Node> test_nodes, ArrayList<String> node_information) {
-		String cvsSplitBy = ",";
-		for(Node n: test_nodes) {
-    		int index = 0;
-    		ArrayList<Edge> temp_edges = new ArrayList<Edge>();
-    		for(String s: node_information) {
-    			String[] split_info = s.split(cvsSplitBy);
-	    			
-	    			if(n.toString().equals(split_info[5])) {
-	    				for(Node node_oneMore: test_nodes) {
-	    					if(node_oneMore.toString().equals(split_info[6])) {
-	    						temp_edges.add(new Edge(node_oneMore.toNode(), Integer.parseInt(split_info[7])));
-	    						index++;
-	    					}
-	    				}
-	    			}
-	    			else if(n.toString().equals(split_info[6])){
-	    				for(Node node_oneMore: test_nodes) {
-	    					if(node_oneMore.toString().equals(split_info[5])) {
-	    						temp_edges.add(new Edge(node_oneMore.toNode(), Integer.parseInt(split_info[7])));
-	    						index++;
-	    					}
-	    				}
-	    			}
-	    		}
-	    		
-	    		//update the distance (weight) between nodes next each other
-	    		Edge[] temp_edges_array = new Edge[temp_edges.size()];
-	    		for(int i = 0; i < temp_edges.size(); i++) {
-	    			temp_edges_array[i] = temp_edges.get(i);
-	    		}
-	    		n.adjacencies = new Edge[temp_edges_array.length];
-	    		for(int i = 0; i < temp_edges_array.length; i++) {
-	    			n.adjacencies[i] = temp_edges_array[i];
-	    			//System.out.println(temp_edges_array[i]);
-	    			//System.out.println(n.adjacencies[i]);
-	    		}
-	    }
-	}
 
-	// Function 5
-	// read csv files
-	public static void readCSVFile(String csvFile, ArrayList<Node> test_nodes, ArrayList<String> node_information) {
-		BufferedReader br = null;
+
+
+	public static void main(String[] args){
+		
+		String csvFile = "node.txt";
+        BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
+        ArrayList<Node> test_nodes = new ArrayList<>();
         
+        ArrayList<String> node_information = new ArrayList<>();
+
         try {
 
             br = new BufferedReader(new FileReader(csvFile));
@@ -170,35 +133,86 @@ public class DijkstraAlgo{
             }
         }
         
-	}
+        // print node stored in the ArrayList for debugging
+        // Igonore this
+        /*
+        for(Node n: test_nodes) {
+        		System.out.print(" " + n);
+        }
+        System.out.println("");
+        */
 
-	
-	// Function 6
-	// to display Edge, Node and weight (distance)
-	public static void showAllNodeAndWeight(ArrayList<Node> test_nodes) {
-		
-		for(Node n: test_nodes) {
-	   		for(Edge s: n.adjacencies) {
-	   			System.out.println("From: '" + n + "'"
-	   			+ "To: '" + s.target + "' "
-	   			+ " the Weight (distnace) is: " + s.weight + "m");
-	   		}
-		}
-		
-	}
-	
-	// Function 7
-	// update edges into node
-	public static void updateEdgesInNode(ArrayList<Node> test_nodes, ArrayList<Node> nodes) {
-		for(Node n: test_nodes) {
+        
+        // initiallize the edegs
+        for(Node n: test_nodes) {
+        		int index = 0;
+        		ArrayList<Edge> temp_edges = new ArrayList<Edge>();
+        		for(String s: node_information) {
+        			String[] split_info = s.split(cvsSplitBy);
+        			
+        			if(n.toString().equals(split_info[5])) {
+        				for(Node node_oneMore: test_nodes) {
+        					if(node_oneMore.toString().equals(split_info[6])) {
+        						temp_edges.add(new Edge(node_oneMore.toNode(), Integer.parseInt(split_info[7])));
+        						index++;
+        					}
+        				}
+        			}
+        			else if(n.toString().equals(split_info[6])){
+        				for(Node node_oneMore: test_nodes) {
+        					if(node_oneMore.toString().equals(split_info[5])) {
+        						temp_edges.add(new Edge(node_oneMore.toNode(), Integer.parseInt(split_info[7])));
+        						index++;
+        					}
+        				}
+        			}
+        		}
+        		
+        		//update the distance (weight) between nodes next each other
+        		Edge[] temp_edges_array = new Edge[temp_edges.size()];
+        		for(int i = 0; i < temp_edges.size(); i++) {
+        			temp_edges_array[i] = temp_edges.get(i);
+        		}
+        		n.adjacencies = new Edge[temp_edges_array.length];
+        		for(int i = 0; i < temp_edges_array.length; i++) {
+        			n.adjacencies[i] = temp_edges_array[i];
+        			//System.out.println(temp_edges_array[i]);
+        			//System.out.println(n.adjacencies[i]);
+        		}
+        }
+        
+       for(Node n: test_nodes) {
+    	   		for(Edge s: n.adjacencies) {
+    	   			System.out.println("From: '" + n + "'"
+    	   			+ "To: '" + s.target + "' "
+    	   			+ " the Weight (distnace) is: " + s.weight + "m");
+    	   		}
+       }
+
+        
+       
+		//Node[] nodes = {"LT1","LT2","LT3","LT4","LT5","LT6","LT7","LT8", ...};
+       
+       	ArrayList<Node> nodes = new ArrayList<>();
+       	
+       	for(Node n: test_nodes) {
        		nodes.add(n);
        	}
-	}
-	
-	// Function 8
-	// Display shortest path in console
-	public static void displayShortestpath(Node destNode, ArrayList<Node> nodes, String destination, String source) {
-		
+       	
+       	
+       	// ********************This is the user input part!!!!!!***********************
+
+		//compute paths
+       	// example " nodes.get(0) = "LT1"
+       	
+		Node destNode = new Node("");
+		System.out.println("Enter Source: ");
+		Scanner scanner = new Scanner(System.in);
+		String source = scanner.nextLine();
+		System.out.println("Enter Destination: ");
+		String destination = scanner.nextLine();
+		scanner.close();
+		System.out.print(source);
 		for (int counter = 0; counter < nodes.size(); counter++) {
 			if (nodes.get(counter).toString().equals(source)) {
 				computePaths(nodes.get(counter)); // Sets source
@@ -229,6 +243,20 @@ public class DijkstraAlgo{
 			}
 		}
 		
+		// ********************This is the user input part!!!!!!***********************
+		
+		//print shortest paths
+				/*
+				for(Node n: nodes){
+					System.out.println("Distance to " + 
+						n + ": " + n.shortestDistance);
+		    		List<Node> path = getShortestPathTo(n);
+		    		System.out.println("Path: " + path);
+				}
+				*/
+		
+
 	}
+
 
 }
