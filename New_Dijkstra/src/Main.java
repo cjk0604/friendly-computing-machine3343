@@ -34,14 +34,14 @@ public static void main(String[] args){
 		//compute paths
        	// example " nodes.get(0) = "LT1"
        	
-		Node destNode = new Node("");
+		Node destNode = new Node(""); // 5th attribute
 		System.out.println("Enter Source: ");
-		Scanner scanner = new Scanner(System.in);
-		String source = scanner.nextLine();
+		Scanner scanner = new Scanner(System.in); // 6th attribute
+		String source = scanner.nextLine(); // 7th attribute
 		System.out.println("Enter Destination: ");
-		String destination = scanner.nextLine();
+		String destination = scanner.nextLine(); // 8th attribute
 		scanner.close();
-		System.out.print(source);
+		System.out.print(source + " ");
 	
 		// Function 8 from DijkstraAlgo Class
 		DijkstraAlgo.displayShortestpath(destNode, nodes, destination, source);

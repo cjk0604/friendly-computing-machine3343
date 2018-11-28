@@ -72,11 +72,13 @@ public class DijkstraAlgo{
 		double totalTimeTaken = Double.parseDouble(String.format("%.2f", (distance / 1.4)));
 		int timeInMinute = (int)totalTimeTaken / 60;
 		
+		
 		if(timeInMinute >= 1) {
-			return timeInMinute + "minutes " + (totalTimeTaken - timeInMinute) + "seconds";
+			totalTimeTaken = (totalTimeTaken - timeInMinute * 60);
+			return timeInMinute + " minutes " + Double.parseDouble(String.format("%.2f", totalTimeTaken)) + " seconds";
 		}
 		else {
-			return totalTimeTaken + "seconds";
+			return totalTimeTaken + " seconds";
 		}
 	}
 	
