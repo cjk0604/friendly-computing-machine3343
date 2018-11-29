@@ -5,7 +5,7 @@ public class Main {
 
 public static void main(String[] args){
 		
-		String csvFile = "node.txt"; // 1st attribute
+		String csvFile = "new_node.txt"; // 1st attribute
         ArrayList<Node> test_nodes = new ArrayList<>(); // 2nd attribute
         ArrayList<String> node_information = new ArrayList<>(); // 3rd attribute
 
@@ -28,8 +28,12 @@ public static void main(String[] args){
        	// update test_nodes into nodes ArrayList
        	DijkstraAlgo.updateEdgesInNode(test_nodes, nodes);
        	
+       	//liftTo5F
+       	//Canteen
        	
-       	
+       	//G5216_217
+       	//StudyRm05_06
+       	//Law_L6
      // ********************This is the user input part!!!!!!***********************
 		//compute paths
        	// example " nodes.get(0) = "LT1"

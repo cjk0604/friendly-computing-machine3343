@@ -186,6 +186,7 @@ public class DijkstraAlgo{
 	   			+ " the Weight (distnace) is: " + s.weight + "m");
 	   		}
 		}
+		System.out.println("Total Number of edges in AC1 (4F & 5F) are: " + test_nodes.size());
 		
 	}
 	
