@@ -9,9 +9,12 @@ public static void main(String[] args){
         ArrayList<Node> test_nodes = new ArrayList<>(); // 2nd attribute
         ArrayList<String> node_information = new ArrayList<>(); // 3rd attribute
 
-        // Function 5 from DijkstraAlgo Class
+        // Create new instance ReadFile
+        ReadFile files = new ReadFile(csvFile);
+        // Function from ReadFile Class
         // read csv files
-        DijkstraAlgo.readCSVFile(csvFile, test_nodes, node_information);
+        files.readCSVFile(test_nodes, node_information);
+        
         
         // Function 4 from DijkstraAlgo Class
         // initialize the edges
@@ -22,33 +25,35 @@ public static void main(String[] args){
         DijkstraAlgo.showAllNodeAndWeight(test_nodes);
        
        
-		//Node[] nodes = {"LT1","LT2","LT3","LT4","LT5","LT6","LT7","LT8", ...};
+		// nodes = {"LT1","LT2","LT3","LT4","LT5","LT6","LT7","LT8", ...};
        	ArrayList<Node> nodes = new ArrayList<>(); // 4th attribute
        	// Function 7 from DijkstraAlgo Class
        	// update test_nodes into nodes ArrayList
        	DijkstraAlgo.updateEdgesInNode(test_nodes, nodes);
        	
-       	//liftTo5F
-       	//Canteen
        	
-       	//G5216_217
-       	//StudyRm05_06
-       	//Law_L6
      // ********************This is the user input part!!!!!!***********************
 		//compute paths
        	// example " nodes.get(0) = "LT1"
+       		
+       		Node destNode = new Node(""); // 7th attribute
+	    		System.out.println("Enter Source: ");
+	    		Scanner scanner = new Scanner(System.in);// 6th attribute
+	    		String source = scanner.nextLine(); // 8th attribute
+	    		System.out.println("Enter Destination: ");
+	    		String destination = scanner.nextLine(); // 9th attribute
+	    		
+	    		System.out.print(source + " ");
+    	
+	    		// Function 8 from DijkstraAlgo Class
+	    		DijkstraAlgo.displayShortestpath(destNode, nodes, destination, source);
+	    		
+	    	 	scanner.close();
+	    		
+	    		
        	
-		Node destNode = new Node(""); // 5th attribute
-		System.out.println("Enter Source: ");
-		Scanner scanner = new Scanner(System.in); // 6th attribute
-		String source = scanner.nextLine(); // 7th attribute
-		System.out.println("Enter Destination: ");
-		String destination = scanner.nextLine(); // 8th attribute
-		scanner.close();
-		System.out.print(source + " ");
-	
-		// Function 8 from DijkstraAlgo Class
-		DijkstraAlgo.displayShortestpath(destNode, nodes, destination, source);
+       	System.out.println("Finished Search!");
+      
 				
 		// ********************This is the user input part!!!!!!***********************
 		

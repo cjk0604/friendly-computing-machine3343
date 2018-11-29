@@ -124,56 +124,6 @@ public class DijkstraAlgo{
 	    }
 	}
 
-	// Function 5
-	// read csv files
-	public static void readCSVFile(String csvFile, ArrayList<Node> test_nodes, ArrayList<String> node_information) {
-		BufferedReader br = null;
-        String line = "";
-        String cvsSplitBy = ",";
-        
-        try {
-
-            br = new BufferedReader(new FileReader(csvFile));
-            String headerLine = br.readLine();	// Ignore the first row, header
-            System.out.println("Header, first row is skipped");
-            while ((line = br.readLine()) != null) {
-            		
-            		// add each line in ArrayList
-            		node_information.add(line);
-                // use comma as separator
-                String[] test_node = line.split(cvsSplitBy);
-                
-                String node_name = test_node[1];
-                // For debugging if all data are sucessfully extracted from csv file
-                /*
-                System.out.println("node [node name= " + test_node[1] + 
-                		" , node_start=" + test_node[5] + 
-                		", node_finish =" + test_node[6] + 
-                		", weight (distance between them) =" + test_node[7] + "]");
-                	*/
-                
-              //initialize the graph base on the CityU Campus map
-                test_nodes.add(new Node(node_name));
-                
-                
-            }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        
-	}
-
 	
 	// Function 6
 	// to display Edge, Node and weight (distance)
