@@ -27,8 +27,8 @@ Node id,Node name,Building,Floor,Edge id,Node_s,Node_f,Weight
 26,midLT3_5,AC1,4,26,midLT9_11,LT11,7
 27,midLT7_9,AC1,4,27,LT12,midLT10_12,7
 28,midLT9_11,AC1,4,28,LT12,midLT12_14,7
-29,midLT11_13,AC1,4,29,midLT12_14,liftTo5F,5
-30,midLT13_15,AC1,4,30,liftTo5F,midLT11_13,5
+29,midLT11_13,AC1,4,29,midLT12_14,LiftTo5F,5
+30,midLT13_15,AC1,4,30,LiftTo5F,midLT11_13,5
 31,toUcircle,AC1,4,31,LT11,midLT11_13,7
 32,liftToCanteen,AC1,4,32,midLT11_13,LT13,7
 33,cutprice,AC1,4,33,midLT12_14,LT14,7

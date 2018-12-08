@@ -11,11 +11,9 @@ class Node implements Comparable<Node>{
 	public Node(String val){
 		value = val;
 	}
-
 	public String toString(){
-			return value;
+		return value;
 	}
-	
 	public Node toNode() {
 		return this;
 	}
